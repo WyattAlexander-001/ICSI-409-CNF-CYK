@@ -10,17 +10,21 @@ public class BalancedParenthesesTests {
 
 	@BeforeAll
 	private static void buildGrammar() {
+		// grammar for the language of balanced parentheses
 		grammar = new Grammar("S");
-		// S -> OZ | AA | E
+		
+		// S -> O Z | A A | E
 		Util.addRule(grammar, "S -> O Z | A A | E");
-		// A -> OZ | AA
+		// A -> O Z | A A
 		Util.addRule(grammar, "A -> O Z | A A");
-		// Z -> AC | )
+		// Z -> A C | )
 		Util.addRule(grammar, "Z -> A C | )");
 		// O -> (
 		Util.addRule(grammar, "O -> (");
 		// C -> )
 		Util.addRule(grammar, "C -> )");
+
+		grammar.displayGrammar();
 	} 
 
 	@Test
