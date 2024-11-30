@@ -68,8 +68,10 @@ Make sure to clone the repository using your preferred method.
 2. Build and Execute
 
     ```bash
-    mvn exec:java
+    mvn clean compile exec:java
     ```
+
+    *May be broken into multiple commands if desired.*
 
 3. Follow Commandline Prompts
 
@@ -95,10 +97,10 @@ Make sure to clone the repository using your preferred method.
 * Nonterminals may be more than one character, such as S0. In order to differentiate between nonterminals, use spaces. 
 * Example grammar:
 
-```
-S0 -> X( Z | S S | E
-S -> X( Z | S S
-Z -> S X) | )
-X( -> (
-X) -> )
-```
+    ```
+    S0 -> X( Z | S S | E
+    S -> X( Z | S S
+    Z -> S X) | )
+    X( -> (
+    X) -> )
+    ```
