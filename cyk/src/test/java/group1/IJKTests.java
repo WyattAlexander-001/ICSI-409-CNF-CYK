@@ -39,23 +39,184 @@ public class IJKTests {
 		grammar.displayGrammar();
 	}
 
+	/*
+	 * Testing Method: Input Space Partitioning (ISP)
+	 * Coverage Criterion: Multiple Base Choice Coverage (MBCC)
+	 *
+	 * Characteristics:
+	 *  c1: input string s is empty
+	 *		b1: true 	b2: false
+	 *  c2: every symbol in s exists in the grammar's alphabet
+	 *		b1: true 	b2: false
+	 * 	c3: length of i 
+	 *  	b1: 0, b2: 1, b3: >1
+	 * 	c4: length of j 
+	 *  	b1: 0, b2: 1, b3: >1
+	 * 	c5: length of k
+	 *  	b1: 0, b2: 1, b3: >1
+	 *
+	 *  Test Requirements (TR): 19
+	 */
+
+	/*
+	 * Base Choice 1
+	 * TR1: [b2, b1, b3, b3, b3]
+	 * expected output: true
+	 */
 	@Test
-	public void abcTest() {
+	public void baseCase1() {
+		assertTrue(CYKAlgorithm.cykAlgorithm("aaaabbbccc", grammar));
+	}
+
+	/*
+	 * INFEASABLE: length of i,j,k cannot be >1 if the string is empty 
+	 * empty string will be tested instead
+	 * TR2: [c1 = true]
+	 * expected output: true
+	 */
+	@Test 
+	public void emptyTest() {
+		assertTrue(CYKAlgorithm.cykAlgorithm("", grammar));
+	}
+
+	/*
+	 * TR3: [b2, b1, b3, b3, b3]
+	 * expected output: false
+	 */
+	@Test
+	public void outsideAlphabetBase1Test() {
+		assertFalse(CYKAlgorithm.cykAlgorithm("aabbccdd", grammar));
+	}
+
+	/*
+	 * TR4: [b2, b1, b1, b3, b3]
+	 * expected output: true
+	 */
+	@Test 
+	public void base1c3_1Test() {
+		assertTrue(CYKAlgorithm.cykAlgorithm("bbcc", grammar));
+	}
+
+	/*
+	 * TR5: [b2, b1, b2, b3, b3]
+	 * expected output: true
+	 */
+	@Test 
+	public void base1c3_2Test() {
+		assertTrue(CYKAlgorithm.cykAlgorithm("abbbccc", grammar));
+	}
+
+	/*
+	 * TR6: [b2, b1, b3, b1, b3]
+	 * expected output: false
+	 */
+	@Test 
+	public void base1c4_1Test() {
+		assertFalse(CYKAlgorithm.cykAlgorithm("aaccc", grammar));
+	}
+
+	/*
+	 * TR7: [b2, b1, b3, b2, b3]
+	 * expected output: false
+	 */
+	@Test 
+	public void base1c4_2Test() {
+		assertFalse(CYKAlgorithm.cykAlgorithm("aabccc", grammar));
+	}
+
+	/*
+	 * TR8: [b2, b1, b3, b3, b1]
+	 * expected output: false
+	 */
+	@Test 
+	public void base1c5_1Test() {
+		assertTrue(CYKAlgorithm.cykAlgorithm("aabb", grammar));
+	}
+
+	/*
+	 * TR9: [b2, b1, b3, b3, b2]
+	 * expected output: false
+	 */
+	@Test 
+	public void base1c5_2Test() {
+		assertTrue(CYKAlgorithm.cykAlgorithm("aabbc", grammar));
+	}
+
+	/*
+	 * Base Choice 2
+	 * TR10: [b2, b1, b2, b2, b2]
+	 * expected output: true
+	 */	
+	@Test 
+	public void base2Test() {
 		assertTrue(CYKAlgorithm.cykAlgorithm("abc", grammar));
 	}
 
+	/*
+	 * the empty case was already tested with the first base choice
+	 * so it is ommitted here.
+	 */
+
+	/*
+	 * TR11: [b2, b2, b2, b2, b2]
+	 * expected output: false
+	 */	
 	@Test 
-	public void jEkTest() {
-		assertTrue(CYKAlgorithm.cykAlgorithm("aabbbccc", grammar));
+	public void outsideAlphabetBase2Test() {
+		assertFalse(CYKAlgorithm.cykAlgorithm("abcdd", grammar));
 	}
 
-	@Test
-	public void iEjTest() {
-		assertTrue(CYKAlgorithm.cykAlgorithm("aaabbbcc", grammar));
+	/*
+	 * TR12: [b2, b1, b1, b2, b2]
+	 * expected output: true
+	 */	
+	@Test 
+	public void base2c3_1Test() {
+		assertTrue(CYKAlgorithm.cykAlgorithm("bc", grammar));
+	}	
+
+	/*
+	 * TR12: [b2, b1, b3, b2, b2]
+	 * expected output: true
+	 */	
+	@Test 
+	public void base2c3_2Test() {
+		assertTrue(CYKAlgorithm.cykAlgorithm("aaabc", grammar));
+	}	
+
+	/*
+	 * TR13: [b2, b1, b2, b1, b2]
+	 * expected output: false
+	 */	
+	@Test 
+	public void base2c4_1Test() {
+		assertFalse(CYKAlgorithm.cykAlgorithm("ac", grammar));
+	}	
+
+	/*
+	 * TR14: [b2, b1, b2, b3, b2]
+	 * expected output: false
+	 */	
+	@Test 
+	public void base2c4_2Test() {
+		assertFalse(CYKAlgorithm.cykAlgorithm("abbbbc", grammar));
 	}
 
+	/*
+	 * TR15: [b2, b1, b2, b2, b1]
+	 * expected output: true
+	 */	
 	@Test 
-	public void failTest() {
-		assertFalse(CYKAlgorithm.cykAlgorithm("aabcc", grammar));
+	public void base2c5_1Test() {
+		assertTrue(CYKAlgorithm.cykAlgorithm("ab", grammar));
+	}
+
+	/*
+	 * TR16: [b2, b1, b2, b2, b3]
+	 * expected output: true
+	 */	
+	@Test 
+	public void base2c5_2Test() {
+		assertTrue(CYKAlgorithm.cykAlgorithm("abccccc", grammar));
 	}
 }
