@@ -16,7 +16,7 @@ public class IJKTests {
 		grammar = new Grammar("S");
 
 		// S -> A Xc | Xa Z1 | c | Xa B | b Z2 | a | E
-		Util.addRule(grammar, "S -> A Xc | Xa Z1 | c | Xa B | b Z2 | a | E"); 
+		Util.addRule(grammar, "S -> A Xc | Xa Z1 | c | Xa B | Xb Z2 | a | E");
 		// A -> A Xc | Xa Z1 | c 
 		Util.addRule(grammar, "A -> A Xc | Xa Z1 | c"); 
 		// C -> Xa Z1
