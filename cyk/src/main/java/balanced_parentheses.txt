@@ -1,0 +1,6 @@
+# Grammar for Balanced Parentheses in CNF
+S0 -> X( Z | S S | E
+S -> X( Z | S S
+Z -> S X) | )
+X( -> (
+X) -> )

@@ -1,5 +1,7 @@
 package group1;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class CYKAlgorithm {
@@ -124,6 +126,65 @@ public class CYKAlgorithm {
         return grammar;
     }
 
+    // Method to read a grammar from a file
+    public static Grammar readGrammarFromFile(String filename) {
+        try {
+            File file = new File(filename);
+            Scanner fileScanner = new Scanner(file);
+
+            Grammar grammar = null;
+
+            System.out.println("\nReading grammar from file: " + filename);
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine().trim();
+                if (line.isEmpty() || line.startsWith("#")) {
+                    continue;
+                }
+
+                String[] parts = line.split("->");
+                if (parts.length != 2) {
+                    System.out.println("Invalid production format in file. Please use 'A -> B C' or 'A -> a'. Line: " + line);
+                    continue;
+                }
+
+                String lhs = parts[0].trim();
+                if (grammar == null) {
+                    // The first LHS is assumed to be the start symbol
+                    grammar = new Grammar(lhs);
+                }
+                String rhsPart = parts[1].trim();
+                String[] rhsOptions = rhsPart.split("\\|");
+                for (String rhsOption : rhsOptions) {
+                    List<String> rhsSymbols = new ArrayList<>();
+                    for (String symbol : rhsOption.trim().split("\\s+")) {
+                        rhsSymbols.add(symbol.trim());
+                    }
+                    grammar.addProduction(lhs, rhsSymbols);
+                }
+            }
+
+            fileScanner.close();
+
+            if (grammar == null) {
+                System.out.println("No grammar found in file.");
+                return null;
+            }
+
+            // Display the grammar for debugging purposes
+            grammar.displayGrammar();
+
+            return grammar;
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + filename);
+            return null;
+        } catch (Exception e) {
+            System.out.println("Error reading grammar from file: " + e.getMessage());
+            return null;
+        }
+    }
+
+
     // Method to parse strings using the current grammar
     public static void parseStrings(Scanner scanner, Grammar grammar) {
         while (true) {
@@ -171,28 +232,34 @@ public class CYKAlgorithm {
 
             while (true) {
                 System.out.println("\nMain Menu:");
-                System.out.println("1. Enter a new grammar");
-                System.out.println("2. Parse strings with the current grammar");
-                System.out.println("3. Exit");
-                System.out.print("Please enter your choice (1-3): ");
+                System.out.println("1. Enter a new grammar manually");
+                System.out.println("2. Load a grammar from a file");
+                System.out.println("3. Parse strings with the current grammar");
+                System.out.println("4. Exit");
+                System.out.print("Please enter your choice (1-4): ");
                 String choice = scanner.nextLine().trim();
 
                 if (choice.equals("1")) {
-                    // Option 1: Enter a new grammar
+                    // Option 1: Enter a new grammar manually
                     grammar = readGrammar(scanner);
                 } else if (choice.equals("2")) {
-                    // Option 2: Parse strings with the current grammar
+                    // Option 2: Load a grammar from a file
+                    System.out.print("Enter the filename: ");
+                    String filename = scanner.nextLine().trim();
+                    grammar = readGrammarFromFile(filename);
+                } else if (choice.equals("3")) {
+                    // Option 3: Parse strings with the current grammar
                     if (grammar == null) {
-                        System.out.println("No grammar has been entered yet. Please enter a grammar first.");
+                        System.out.println("No grammar has been entered yet. Please enter or load a grammar first.");
                         continue;
                     }
                     parseStrings(scanner, grammar);
-                } else if (choice.equals("3")) {
-                    // Option 3: Exit the program
+                } else if (choice.equals("4")) {
+                    // Option 4: Exit the program
                     System.out.println("Exiting the program.");
                     break;
                 } else {
-                    System.out.println("Invalid choice. Please select 1, 2, or 3.");
+                    System.out.println("Invalid choice. Please select 1, 2, 3, or 4.");
                 }
             }
 
@@ -201,4 +268,5 @@ public class CYKAlgorithm {
             e.printStackTrace();
         }
     }
+
 }
