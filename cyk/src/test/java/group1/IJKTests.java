@@ -12,7 +12,7 @@ public class IJKTests {
 
 	@BeforeAll
 	private static void buildGrammar() {
-		// grammar for the langauge {a^i b^j c^k | i = j or j = k}
+		// grammar for the language {a^i b^j c^k | i = j or j = k}
 		grammar = new Grammar("S");
 
 		// S -> A Xc | Xa Z1 | c | Xa B | b Z2 | a | E
@@ -55,7 +55,7 @@ public class IJKTests {
 	 * 	c5: length of k
 	 *  	b1: 0, b2: 1, b3: >1
 	 *
-	 *  Test Requirements (TR): 19
+	 *  Test Requirements (TR): 17
 	 */
 
 	/*
@@ -69,7 +69,7 @@ public class IJKTests {
 	}
 
 	/*
-	 * INFEASABLE: length of i,j,k cannot be >1 if the string is empty 
+	 * INFEASIBLE: length of i,j,k cannot be >1 if the string is empty 
 	 * empty string will be tested instead
 	 * TR2: [c1 = true]
 	 * expected output: true
@@ -176,7 +176,7 @@ public class IJKTests {
 	}	
 
 	/*
-	 * TR12: [b2, b1, b3, b2, b2]
+	 * TR13: [b2, b1, b3, b2, b2]
 	 * expected output: true
 	 */	
 	@Test 
@@ -185,7 +185,7 @@ public class IJKTests {
 	}	
 
 	/*
-	 * TR13: [b2, b1, b2, b1, b2]
+	 * TR14: [b2, b1, b2, b1, b2]
 	 * expected output: false
 	 */	
 	@Test 
@@ -194,7 +194,7 @@ public class IJKTests {
 	}	
 
 	/*
-	 * TR14: [b2, b1, b2, b3, b2]
+	 * TR15: [b2, b1, b2, b3, b2]
 	 * expected output: false
 	 */	
 	@Test 
@@ -203,7 +203,7 @@ public class IJKTests {
 	}
 
 	/*
-	 * TR15: [b2, b1, b2, b2, b1]
+	 * TR16: [b2, b1, b2, b2, b1]
 	 * expected output: true
 	 */	
 	@Test 
@@ -212,7 +212,7 @@ public class IJKTests {
 	}
 
 	/*
-	 * TR16: [b2, b1, b2, b2, b3]
+	 * TR17: [b2, b1, b2, b2, b3]
 	 * expected output: true
 	 */	
 	@Test 
