@@ -92,13 +92,11 @@ public class Sipser26dTests {
 
 	/*
 	 * TR4: [b2, b1, b1, b3, b1]
-	 * Expected output: true
-	 * NOTE: the language does not specify that i != j, 
-	 * so this is a valid string in the grammar
+	 * Expected output: false
 	 */
 	@Test 
 	public void testNoPartitions() {
-		assertTrue(CYKAlgorithm.cykAlgorithm("aa", grammar));
+		assertFalse(CYKAlgorithm.cykAlgorithm("aa", grammar));
 	}
 
 	/*
